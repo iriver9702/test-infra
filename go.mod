@@ -1,6 +1,6 @@
 // Please read https://git.k8s.io/test-infra/docs/dep.md before updating dependencies.
 
-module k8s.io/test-infra
+module zhanghe9702/test-infra
 
 replace github.com/golang/lint => golang.org/x/lint v0.0.0-20190301231843-5614ed5bae6f
 
@@ -82,7 +82,6 @@ require (
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1
 	golang.org/x/tools v0.0.0-20200709181711-e327e1019dfe
 	google.golang.org/api v0.29.0
-	google.golang.org/genproto v0.0.0-20200709005830-7a2ca40e9dc3 // indirect
 	gopkg.in/fsnotify.v1 v1.4.7
 	gopkg.in/robfig/cron.v2 v2.0.0-20150107220207-be2e0b0deed5
 	gopkg.in/yaml.v3 v3.0.0-20190709130402-674ba3eaed22
@@ -92,12 +91,12 @@ require (
 	k8s.io/code-generator v0.18.6
 	k8s.io/klog v1.0.0
 	k8s.io/klog/v2 v2.0.0
+	k8s.io/test-infra v0.0.0-20200911055614-338b1b6de9f8
 	k8s.io/utils v0.0.0-20200603063816-c1c6865ac451
 	knative.dev/pkg v0.0.0-20200711004937-22502028e31a
 	mvdan.cc/xurls/v2 v2.0.0
 	sigs.k8s.io/boskos v0.0.0-20200617235605-f289ba6555ba
 	sigs.k8s.io/controller-runtime v0.6.1
-	sigs.k8s.io/structured-merge-diff/v3 v3.0.1-0.20200706213357-43c19bbb7fba // indirect
 	sigs.k8s.io/yaml v1.2.0
 )
 

@@ -21,13 +21,13 @@ ALPINE_VERSION           ?= 0.1
 GIT_VERSION              ?= 0.2
 
 # These are the usual GKE variables.
-PROJECT       ?= k8s-prow
-BUILD_PROJECT ?= k8s-prow-builds
-ZONE          ?= us-central1-f
+PROJECT       ?= hari
+BUILD_PROJECT ?= hari
+ZONE          ?= asia-east1-a
 CLUSTER       ?= prow
 
 # Build and push specific variables.
-REGISTRY ?= gcr.io
+REGISTRY ?= harbor.cloudminds.com
 PUSH     ?= docker push
 
 export PROW_REPO_OVERRIDE ?= $(REGISTRY)/$(PROJECT)
@@ -46,10 +46,10 @@ update-cat-api-key: get-cluster-credentials
 .PHONY: update-config update-plugins update-cat-api-key
 
 get-cluster-credentials:
-	gcloud container clusters get-credentials "$(CLUSTER)" --project="$(PROJECT)" --zone="$(ZONE)"
+	export KUBECONFIG=$$HOME/.kube/config
 
 get-build-cluster-credentials:
-	gcloud container clusters get-credentials "$(CLUSTER)" --project="$(BUILD_PROJECT)" --zone="$(ZONE)"
+	export KUBECONFIG=$$HOME/.kube/config
 
 build:
 	go install ./cmd/...

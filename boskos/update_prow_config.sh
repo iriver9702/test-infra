@@ -37,6 +37,9 @@ if ! [ -x "$(command -v kubectl)" ]; then
 fi
 
 # TODO(fejta): deploy this using the bazel target
-gcloud container clusters get-credentials --project=k8s-prow-builds --zone=us-central1-f prow
+# in local env, no need to get credentials
+KUBECONTEXT=${KUBECONTEXT:-kubernetes-admin@cluster.local}
+
+# gcloud container clusters get-credentials --project=k8s-prow-builds --zone=us-central1-f prow
 kubectl create configmap resources --from-file=config=config/prow/cluster/boskos-resources.yaml --dry-run -o yaml | \
-    kubectl --context=gke_k8s-prow-builds_us-central1-f_prow --namespace=test-pods replace configmap resources -f -
+    kubectl --context=${KUBECONTEXT} --namespace=test-pods replace configmap resources -f -
