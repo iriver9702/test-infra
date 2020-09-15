@@ -20,7 +20,7 @@ metadata:
   labels:
     app: deck
 spec:
-  replicas: 3
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -38,7 +38,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: deck
-        image: gcr.io/k8s-prow/deck:v20200910-8c70361b39
+        image: zhanghe:5000/k8s-prow/deck:v20200924-e60bf413ff
         imagePullPolicy: Always
         ports:
           - name: http
@@ -47,7 +47,7 @@ spec:
         - --kubeconfig=/etc/kubeconfig/config
         - --tide-url=http://tide/
         - --hook-url=http://hook:8888/plugin-help
-        - --redirect-http-to=prow.k8s.io
+        - --redirect-http-to=prow.cloudminds.com:32044
         - --oauth-url=/github-login
         - --config-path=/etc/config/config.yaml
         - --job-config-path=/etc/job-config

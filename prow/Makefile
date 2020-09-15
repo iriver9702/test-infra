@@ -21,13 +21,13 @@ ALPINE_VERSION           ?= 0.1
 GIT_VERSION              ?= 0.2
 
 # These are the usual GKE variables.
-PROJECT       ?= hari
-BUILD_PROJECT ?= hari
+PROJECT       ?= k8s-prow
+BUILD_PROJECT ?= k8s-prow-builds
 ZONE          ?= asia-east1-a
 CLUSTER       ?= prow
 
 # Build and push specific variables.
-REGISTRY ?= harbor.cloudminds.com
+REGISTRY ?= localhost:5000
 PUSH     ?= docker push
 
 export PROW_REPO_OVERRIDE ?= $(REGISTRY)/$(PROJECT)
@@ -35,10 +35,10 @@ export PROW_REPO_OVERRIDE ?= $(REGISTRY)/$(PROJECT)
 DOCKER_LABELS:=--label io.k8s.prow.git-describe="$(shell git describe --tags --always --dirty)"
 
 update-config: get-cluster-credentials
-	kubectl create configmap config --from-file=config.yaml=config.yaml --dry-run -o yaml | kubectl replace configmap config -f -
+	kubectl create configmap config --from-file=config.yaml=../config/prow/config.yaml --dry-run -o yaml | kubectl replace configmap config -f -
 
 update-plugins: get-cluster-credentials
-	kubectl create configmap plugins --from-file=plugins.yaml=plugins.yaml --dry-run -o yaml | kubectl replace configmap plugins -f -
+	kubectl create configmap plugins --from-file=plugins.yaml=../config/prow/plugins.yaml --dry-run -o yaml | kubectl replace configmap plugins -f -
 
 update-cat-api-key: get-cluster-credentials
 	kubectl create configmap cat-api-key --from-file=api-key=plugins/cat/api-key --dry-run -o yaml | kubectl replace configmap cat-api-key -f -

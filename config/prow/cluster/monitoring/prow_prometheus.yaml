@@ -4,7 +4,7 @@ metadata:
   name: prow
   namespace: prow-monitoring
 spec:
-  replicas: 2
+  replicas: 1
   storage:
     volumeClaimTemplate:
       metadata:

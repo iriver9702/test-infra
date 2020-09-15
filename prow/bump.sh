@@ -65,11 +65,11 @@ usage() {
   exit 1
 }
 
-if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS:-}" ]]; then
-  echo "Detected GOOGLE_APPLICATION_CREDENTIALS, activating..." >&2
-  gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
-  gcloud auth configure-docker
-fi
+# if [[ -n "${GOOGLE_APPLICATION_CREDENTIALS:-}" ]]; then
+#   echo "Detected GOOGLE_APPLICATION_CREDENTIALS, activating..." >&2
+#   gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
+#   gcloud auth configure-docker
+# fi
 
 cmd=
 if [[ $# != 0 ]]; then
@@ -80,8 +80,8 @@ fi
 # List the $1 most recently pushed prow versions
 list-options() {
   count="$1"
-  gcloud container images list-tags gcr.io/k8s-prow/plank --limit="${count}" --format='value(tags)' \
-      | grep -o -E 'v[^,]+' | "${TAC}"
+  #use local images 
+  curl -s localhost:5000/v2/k8s-prow/plank/tags/list | grep -o -E "v[^,][0-9]+-[a-f0-9]+" | head -n 10 | "${TAC}"
 }
 
 # Print 10 most recent prow versions, ask user to select one, which becomes new_version
@@ -147,16 +147,16 @@ echo -e "$(color-image ${images[@]})" >&2
 echo -e "Bumping: $(color-image ${images[@]}) to $(color-version ${new_version}) ..." >&2
 
 # Determine which files we need to update.
-configfiles=($(grep -rl -e "gcr.io/k8s-prow/" ../config/jobs))
-configfiles+=(cluster/*.yaml)
+configfiles=($(grep -rl -e "localhost:5000/k8s-prow/" ../config/jobs))
+configfiles+=(../config/prow/cluster/*.yaml)
 configfiles+=(../label_sync/cluster/*.yaml)
 configfiles+=(cmd/branchprotector/*.yaml)
-configfiles+=("config.yaml")
+configfiles+=(../config/prow/config.yaml)
 
 # Update image tags for the identified images in the identified files.
 for i in "${images[@]}"; do
   echo -e "  $(color-image ${i}): $(color-version ${new_version})" >&2
-  filter="s/gcr.io\/k8s-prow\/\(${i}:\)v[a-f0-9-]\+/gcr.io\/k8s-prow\/\1${new_version}/I"
+  filter="s/localhost:5000\/k8s-prow\/\(${i}:\)v[a-f0-9-]\+/zhanghe:5000\/k8s-prow\/\1${new_version}/I"
   for cfg in "${configfiles[@]}"; do
     ${SED} -i "${filter}" ${cfg}
   done

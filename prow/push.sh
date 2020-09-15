@@ -66,7 +66,7 @@ if [[ "${new_version}" == *-dirty ]]; then
 fi
 echo -e "Pushing $(color-version ${new_version}) via $(color-target //prow:release-push --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64) ..." >&2
 # Remove retries after https://github.com/bazelbuild/rules_docker/issues/673
-for i in {1..3}; do
+for i in {1..1}; do
   if bazel run //prow:release-push --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64; then
     exit 0
   elif [[ "$i" == 3 ]]; then

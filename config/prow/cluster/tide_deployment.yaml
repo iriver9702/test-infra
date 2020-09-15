@@ -11,7 +11,39 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: default
+  name: s3-credentials
+stringData:
+  service-account.json: |
+    {
+      "region": "us-east-1",
+      "access_key": "YY154YAMW2K69M37U2LG",
+      "endpoint": "rook-ceph-rgw-my-store.rook-ceph.svc.cluster.local",
+      "insecure": true,
+      "s3_force_path_style": true,
+      "secret_key": "5zWQhqiQkUOq4nbAzWL5aFXNNCcoRBM4VGPjUAkQ"
+    }
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: test-pods
+  name: s3-credentials
+stringData:
+  service-account.json: |
+    {
+      "region": "us-east-1",
+      "access_key": "YY154YAMW2K69M37U2LG",
+      "endpoint": "rook-ceph-rgw-my-store.rook-ceph.svc.cluster.local",
+      "insecure": true,
+      "s3_force_path_style": true,
+      "secret_key": "5zWQhqiQkUOq4nbAzWL5aFXNNCcoRBM4VGPjUAkQ"
+    }
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,7 +66,7 @@ spec:
       serviceAccountName: tide
       containers:
       - name: tide
-        image: gcr.io/k8s-prow/tide:v20200910-8c70361b39
+        image: zhanghe:5000/k8s-prow/tide:v20200924-e60bf413ff
         args:
         - --dry-run=false
         - --github-endpoint=http://ghproxy
@@ -42,8 +74,9 @@ spec:
         - --github-token-path=/etc/github/oauth
         - --config-path=/etc/config/config.yaml
         - --job-config-path=/etc/job-config
-        - --history-uri=gs://k8s-prow/tide-history.json
-        - --status-path=gs://k8s-prow/tide-status-checkpoint.yaml
+        - --s3-credentials-file=/etc/s3-credentials/service-account.json
+        - --history-uri=/home/vagrant/tide-history.json
+        - --status-path=/home/vagrant/tide-status-checkpoint.yaml
         ports:
         - name: http
           containerPort: 8888
@@ -57,6 +90,9 @@ spec:
         - name: job-config
           mountPath: /etc/job-config
           readOnly: true
+        - name: s3-credentials
+          mountPath: /etc/s3-credentials
+          readOnly: true
       volumes:
       - name: oauth
         secret:
@@ -67,3 +103,6 @@ spec:
       - name: job-config
         configMap:
           name: job-config
+      - name: s3-credentials
+        secret:
+          secretName: s3-credentials

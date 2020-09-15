@@ -1,0 +1,5 @@
+client_id: e926df4d7a74804c7251
+client_secret: ebeac8584e4fa65619be01fce8ff99fedbe3b633 
+redirect_url: https://prow.cloudminds.com:31008/github-login/redirect
+final_redirect_url: https://prow.cloudminds.com:31008/pr
+

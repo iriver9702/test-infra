@@ -59,7 +59,7 @@ def recreate_plugins_config(wet, configmap_name, path):
     cmd = (
         'kubectl create configmap %s'
         ' --from-file=plugins.yaml=%s'
-        ' --dry-run -o yaml | kubectl replace configmap config -f -'
+        ' --dry-run -o yaml | kubectl replace configmap plugins -f -'
     ) % (configmap_name, path)
     real_cmd = ['/bin/sh', '-c', cmd]
     print(real_cmd)
@@ -89,7 +89,7 @@ def main():
     # jobs config
     parser.add_argument("--job-configmap", default="job-config", help="name of prow jobs configmap")
     parser.add_argument(
-        "--job-config-dir", default="config/jobs",
+        "--job-config-dir", default="config/jobs/zhanghe9702",
         help="root dir of prow jobs configmap")
     # prow config
     parser.add_argument("--prow-configmap", default="config",

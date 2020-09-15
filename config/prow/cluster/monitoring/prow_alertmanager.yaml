@@ -4,7 +4,7 @@ metadata:
   name: prow
   namespace: prow-monitoring
 spec:
-  replicas: 3
+  replicas: 1
   baseImage: docker.io/prom/alertmanager
   listenLocal: false
   nodeSelector: {}

@@ -25,12 +25,12 @@ build_date="$(date -u '+%Y%m%d')"
 docker_tag="v${build_date}-${git_commit}"
 # TODO(fejta): retire STABLE_PROW_REPO
 cat <<EOF
-STABLE_DOCKER_REPO ${DOCKER_REPO_OVERRIDE:-harbor.cloudminds.com/hari}
-STABLE_PROW_REPO ${PROW_REPO_OVERRIDE:-harbor.cloudminds.com/hari}
-EDGE_PROW_REPO ${EDGE_PROW_REPO_OVERRIDE:-harbor.cloudminds.com/hari}
-STABLE_TESTGRID_REPO ${TESTGRID_REPO_OVERRIDE:-harbor.cloudminds.com/hari}
-STABLE_PROW_CLUSTER ${PROW_CLUSTER_OVERRIDE:-cluster.local}
-STABLE_BUILD_CLUSTER ${BUILD_CLUSTER_OVERRIDE:-cluster.local}
+STABLE_DOCKER_REPO ${DOCKER_REPO_OVERRIDE:-localhost:5000/k8s-testimages}
+STABLE_PROW_REPO ${PROW_REPO_OVERRIDE:-localhost:5000/k8s-prow}
+EDGE_PROW_REPO ${EDGE_PROW_REPO_OVERRIDE:-localhost:5000/k8s-prow-edge}
+STABLE_TESTGRID_REPO ${TESTGRID_REPO_OVERRIDE:-localhost:5000/k8s-testgrid}
+STABLE_PROW_CLUSTER ${PROW_CLUSTER_OVERRIDE:-kubernetes}
+STABLE_BUILD_CLUSTER ${BUILD_CLUSTER_OVERRIDE:-kubernetes}
 STABLE_BUILD_GIT_COMMIT ${git_commit}
 DOCKER_TAG ${docker_tag}
 EOF

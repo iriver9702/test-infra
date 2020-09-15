@@ -1,0 +1,2 @@
+export RELAY_KEY=0c09fc53-f06b-496d-afb0-cd0eb9e0f966
+export RELAY_SECRET=aYjAD4q14DOz

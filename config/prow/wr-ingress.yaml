@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: webrelay # other ingress classes will be ignored
+  name: relay-ingress
+  namespace: default
+spec:
+  rules:
+    - host: rpgod6wdsnlwhawouwmfjg.webrelay.io
+      http:
+        paths:
+        - path: /hook
+          backend:
+            serviceName: hook
+            servicePort: 8888

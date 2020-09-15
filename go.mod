@@ -1,6 +1,6 @@
 // Please read https://git.k8s.io/test-infra/docs/dep.md before updating dependencies.
 
-module zhanghe9702/test-infra
+module k8s.io/test-infra
 
 replace github.com/golang/lint => golang.org/x/lint v0.0.0-20190301231843-5614ed5bae6f
 

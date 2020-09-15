@@ -20,14 +20,14 @@ metadata:
     app: tot
   name: tot-storage
 spec:
+  storageClassName: ""
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  gcePersistentDisk:
-    pdName: tot-storage
-    fsType: ext4
+  hostPath:
+    path: "/home/vagrant/totstore"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -65,7 +65,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: tot
-        image: gcr.io/k8s-prow/tot:v20200910-8c70361b39
+        image: zhanghe:5000/k8s-prow/tot:v20200924-e60bf413ff
         imagePullPolicy: Always
         args:
         - -storage=/store/tot.json

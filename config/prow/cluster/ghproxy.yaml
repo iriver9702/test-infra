@@ -12,6 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: default
+  name: ghproxy
+  labels:
+    app: ghproxy
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/home/vagrant/ghproxystore"
+---
+
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -24,7 +42,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Gi
+      storage: 10Gi
   # gce-ssd-retain is specified in config/prow/cluster/gce-ssd-retain_storageclass.yaml
   #
   # If you are setting up your own Prow instance you can do any of the following:
@@ -32,7 +50,7 @@ spec:
   # 2) Specify your own storage class.
   # 3) If you are using GKE you can use the gce-ssd-retain storage class. It can be
   #    created with: `kubectl create -f config/prow/cluster/gce-ssd-retain_storageclass.yaml
-  storageClassName: gce-ssd-retain
+  # storageClassName: gce-ssd-retain
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -53,7 +71,7 @@ spec:
     spec:
       containers:
       - name: ghproxy
-        image: gcr.io/k8s-prow/ghproxy:v20200910-8c70361b39
+        image: zhanghe:5000/k8s-prow/ghproxy:v20200924-e60bf413ff
         args:
         - --cache-dir=/cache
         - --cache-sizeGB=99
@@ -69,13 +87,6 @@ spec:
         persistentVolumeClaim:
           claimName: ghproxy
       # run on our dedicated node
-      tolerations:
-      - key: "dedicated"
-        operator: "Equal"
-        value: "ghproxy"
-        effect: "NoSchedule"
-      nodeSelector:
-        dedicated: "ghproxy"
 ---
 apiVersion: v1
 kind: Service
