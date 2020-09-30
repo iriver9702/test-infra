@@ -722,7 +722,7 @@ default:
       prowPlugin: shrug
       addedBy: humans
 repos:
-  zhanghe9702/kubernetes:
+  iriver9702/kubernetes:
     labels:
       - color: 0052cc
         description: Indicates an issue on admin area.
@@ -778,7 +778,7 @@ repos:
         target: prs
         prowPlugin: require-matching-label
         addedBy: prow
-  zhanghe9702/test-infra:
+  iriver9702/test-infra:
     labels:
       - color: 0052cc
         description: Issues or PRs related to code in /robots

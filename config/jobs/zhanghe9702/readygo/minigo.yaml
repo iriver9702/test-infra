@@ -1,9 +1,9 @@
 presubmits:
-  zhanghe9702/readygo:
+  iriver9702/readygo:
   - name: pull-readygo-go-build
     always_run: true
     decorate: true
-    path_alias: zhanghe9702/readygo
+    path_alias: iriver9702/readygo
     spec:
       containers:
       - image: golang:1.14.4

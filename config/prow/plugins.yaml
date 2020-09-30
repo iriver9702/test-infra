@@ -2,16 +2,17 @@
 ---
 triggers:
 - repos:
-  - zhanghe9702
+  - iriver9702
   join_org_url: "https://git.k8s.io/community/community-membership.md#member"
   only_org_members: true
 
 owners:
   mdyamlrepos:
-  - zhanghe9702/kubernetes
+  - iriver9702/readygo
+  - iriver9702/kubernetes
   skip_collaborators:
-  - zhanghe9702/kubernetes
-  - zhanghe9702/readygo
+  - iriver9702/kubernetes
+  - iriver9702/readygo
 
 # TODO(fejta): delete these in before April
 use_deprecated_2018_implicit_self_approve_default_migrate_before_july_2019: true
@@ -19,8 +20,8 @@ use_deprecated_2018_review_acts_as_approve_default_migrate_before_july_2019: tru
 
 approve:
 - repos:
-  - zhanghe9702/kubernetes
-  - zhanghe9702/readygo
+  - iriver9702/kubernetes
+  - iriver9702/readygo
   require_self_approval: false
   lgtm_acts_as_approve: true
   ignore_review_state: false
@@ -57,18 +58,18 @@ label:
 
 lgtm:
 - repos:
-  - zhanghe9702/kubernetes
-  - zhanghe9702/readygo
+  - iriver9702/kubernetes
+  - iriver9702/readygo
   review_acts_as_lgtm: true
 
 blockades:
 - repos:
-  - zhanghe9702/kubernetes
+  - iriver9702/kubernetes
   blockregexps:
   - ^examples/
   explanation: "examples/ has moved to https://github.com/kubernetes/examples/"
 - repos:
-  - zhanghe9702/readygo
+  - iriver9702/readygo
   blockregexps:
   - ^events/elections/2019
   explanation: "These files are historical, and from events that have already occurred."
@@ -91,7 +92,7 @@ heart:
 slack:
   mergewarnings:
   - repos:
-    - zhanghe9702/kubernetes
+    - iriver9702/kubernetes
     channels:
     - kubernetes-dev
     exempt_users:
@@ -114,7 +115,7 @@ slack:
             - lavalamp # feature-rate-limiting "branch manager"
             - deads2k # feature-rate-limiting "branch manager"
   - repos:
-    - zhanghe9702/test-infra
+    - iriver9702/test-infra
     channels:
     - testing-ops
     exempt_users:
@@ -122,10 +123,10 @@ slack:
 
 
 milestone_applier:
-  zhanghe9702/kubernetes:
+  iriver9702/kubernetes:
     master: v1.20
     release-1.19: v1.19
-  zhanghe9702/readygo:
+  iriver9702/readygo:
     master: v1.0
 
 repo_milestone:
@@ -136,7 +137,7 @@ repo_milestone:
     # curl -H "Authorization: token <token>" "https://api.github.com/orgs/<org-name>/teams?page=N"
     maintainers_id: 4110120
     maintainers_team: members
-  zhanghe9702/readygo:
+  iriver9702/readygo:
     maintainers_id: 4110120
     maintainers_team: members
     maintainers_friendly_name:  Readygo Repo Maintainers
@@ -144,7 +145,7 @@ repo_milestone:
 
 project_config:
   project_org_configs:
-    zhanghe9702:
+    iriver9702:
       org_maintainers_team_id: 4110120 # sig-testing-dummy-project-team
       org_default_column_map:
         test-infra-dummy-testing-project-plugin:
@@ -187,25 +188,25 @@ config_updater:
 
 welcome:
 - repos:
-  - zhanghe9702/readygo
-  - zhanghe9702/kubernetes
+  - iriver9702/readygo
+  - iriver9702/kubernetes
   message_template: "Welcome @{{.AuthorLogin}}! <br><br>It looks like this is your first PR to <a href='https://github.com/{{.Org}}/{{.Repo}}'>{{.Org}}/{{.Repo}}</a> 🎉.  :smiley:"
 
 require_matching_label:
 - missing_label: needs-kind
-  org: zhanghe9702
-  repo: kubernetes
+  org: iriver9702
+  repo: readygo
   prs: true
   regexp: ^kind/
 - missing_label: needs-sig
-  org: zhanghe9702
-  repo: kubernetes
+  org: iriver9702
+  repo: readygo
   prs: true
   regexp: ^(sig|wg|committee)/
   # Define needs-sig separately for issues so that we only comment on issues.
 - missing_label: needs-sig
-  org: zhanghe9702
-  repo: kubernetes
+  org: iriver9702
+  repo: readygo
   issues: true
   regexp: ^(sig|wg|committee)/
   missing_comment: |
@@ -216,12 +217,12 @@ require_matching_label:
 
     Please see the [group list](https://git.k8s.io/community/sig-list.md) for a listing of the SIGs, working groups, and committees available.
 - missing_label: needs-priority
-  org: zhanghe9702
-  repo: kubernetes
+  org: iriver9702
+  repo: readygo
   prs: true
   regexp: ^priority/
 - missing_label: needs-kind
-  org: zhanghe9702
+  org: iriver9702
   repo: readygo
   prs: true
   issues: true
@@ -247,7 +248,7 @@ cherry_pick_unapproved:
 plugins:
   # Enable the following for any bazelbuild repo (rules_k8s, rules_docker) that sends prow webhooks
   # Repos that do not send prow webhooks will see no effect.
-  zhanghe9702:
+  iriver9702:
   - approve
   - assign
   - blunderbuss
@@ -278,7 +279,7 @@ plugins:
   - yuks
 
 
-  zhanghe9702/kubernetes:
+  iriver9702/kubernetes:
   - blockade
   - cherry-pick-unapproved
   - mergecommitblocker
@@ -290,7 +291,7 @@ plugins:
   - require-matching-label
 
 external_plugins:
-  zhanghe9702:
+  iriver9702:
   # - name: refresh-remote
   #   endpoint: https://prow.cloudminds.com:31008/
   #   events:

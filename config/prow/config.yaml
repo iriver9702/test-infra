@@ -18,7 +18,7 @@ plank:
       gcs_configuration:
         bucket: mem://prow-logs
         path_strategy: explicit
-        default_org: "zhanghe9702"
+        default_org: "iriver9702"
         default_repo: "readygo"
       s3_credentials_secret: s3-credentials
       resources:
@@ -90,7 +90,7 @@ managed_webhooks:
   respect_legacy_global_token: true
   # Config for orgs and repos that have been onboarded to this Prow instance.
   org_repo_config:
-    zhanghe9702:
+    iriver9702:
       token_created_after: 2020-08-12T00:00:00Z
 
 slack_reporter_configs:
@@ -109,7 +109,7 @@ slack_reporter_configs:
 branch-protection:
   allow_disabled_policies: true  
   orgs:
-    zhanghe9702:
+    iriver9702:
       protect: false
       exclude:
         - "^revert-" # don't protect revert branches
@@ -167,7 +167,7 @@ tide:
   sync_period: 2m
   queries:
   - orgs:
-    - zhanghe9702
+    - iriver9702
     labels:
     - lgtm
     - approved
@@ -178,7 +178,7 @@ tide:
     - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
-    - zhanghe9702/readygo
+    - iriver9702/readygo
     labels:
     - lgtm
     - approved
@@ -191,7 +191,7 @@ tide:
     - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
-    - zhanghe9702/kubernetes
+    - iriver9702/kubernetes
     excludedBranches:
     - release-1.19
     labels:
@@ -211,11 +211,11 @@ tide:
     - needs-sig
 
   merge_method:
-    zhanghe9702/kubernetes: squash
-    zhanghe9702/readygo: squash
+    iriver9702/kubernetes: squash
+    iriver9702/readygo: squash
 
   merge_commit_template:
-    zhanghe9702:
+    iriver9702:
       title: "{{ .Title }} (#{{ .Number }})"
   pr_status_base_urls:
     '*': https://prow.cloudminds.com:31008/pr
@@ -230,7 +230,7 @@ tide:
           readygo:
             from-branch-protection: true
   batch_size_limit:
-    "zhanghe9702/kubernetes": 15
+    "iriver9702/kubernetes": 15
 
 push_gateway:
   endpoint: pushgateway
